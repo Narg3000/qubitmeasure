@@ -4,3 +4,5 @@ builds/transport main/
 
 qubit measurement/LabView program/qubit measurement main.aliases
 *.iml
+
+.idea
