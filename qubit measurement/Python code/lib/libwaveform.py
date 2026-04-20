@@ -3,14 +3,19 @@
 Created on Thu Mar 17 15:33:26 2022
 
 @author: Guang Yue
+
+Edited on 4/17/2026 by Autumn Bauman
 """
 import numpy as np
+
 
 
 def gauss_wave(t, f, sd, x0, p0):  # ns, MHz, Pi
     p = np.exp(-0.5 * (t - x0) ** 2 / sd ** 2)
     s = np.sin(2 * np.pi * f * t * 0.001 + np.pi * p0)
     return p * s
+
+
 
 
 def g_waveform(delay, length, f, sd, p0, amp, offset):  # unit ns, MHz, Pi

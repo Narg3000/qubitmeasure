@@ -7,9 +7,9 @@ import iqmixercal as iqcal
 import libmeasurement as lm
 
 # %%
-path = 'C:\\Users\\dvh-collab-user\\Desktop\\20230424 Robert sample\\'
+path = 'C:\\Users\\dvh-collab-user\\Desktop\\AutumnBau\\data\\'
 # %% setup LO qubit channel
-bq.lo.set_fre(1, 4.73622)
+bq.lo.set_fre(1, 7)
 bq.lo.set_power(1, 10)
 bq.lo.lo_enable(1, 1)
 # %% cavity channel
@@ -69,8 +69,10 @@ bq.msys.istart = 1000
 bq.msys.iend = 2500
 scan.test_readout(100000)
 # %% measure cavity
+bq.lo.set_fre(1,7.85)
+bq.lo.lo_enable(1,1)
 scan.name = '-cavity'
-scan.setscanfre(6.194, 0.00001, 6.196)
+scan.setscanfre(6.5, 0.001, 7.0)
 scan.r_delay = 90000
 scan.r_length = 2000
 scan.r_amp = 0.05
@@ -85,14 +87,14 @@ scan.name = '-cavity_power'
 scan.r_delay = 90000
 scan.r_length = 2000
 scan.loch = 2
-scan.setscanfre(5.942, 0.00001, 5.945)
-scan.setpowerrange(0.8, 0.05, 1.4)
+scan.setscanfre(7.8, 0.005, 8.0)
+scan.setpowerrange(0.8, 0.1, 1.4)
 scan.cavity_power()
 # %% run search qubit fre
 scan.name = '-qubit-search'
 scan.r_amp = 0.05
 scan.d_amp = 0.2
-scan.setscanfre(400, 0.1, 430)
+scan.setscanfre(400, 0.01, 430)
 scan.ifch = 'drive'
 scan.d_delay = 80000
 scan.d_length = 10000

@@ -79,16 +79,18 @@ def load_one_ch(pulse):
 
 
 # load delay waveforms and IQ waveform for drive and readout using AWG
-def load_waves(d_delay, d_length, d_amp, r_delay, r_length, r_amp, trig):
+def load_waves(d_delay, d_length, d_amp, r_delay, r_length, r_amp, trig, phase: float = None):
+    if phase is None:
+        phase = msys.cavity_mixer.phase
     msys.awg.waveformFlush()
     msys.awg_next_id = 0
     # AWG can only handle no less than 5 points. delay has to be bigger than 100ns
     msys.drive_i.set_parameter(100, d_delay, d_length, 1, msys.awg_qrange, d_amp, msys.qubit_mixer.i_offset, 0, trig)
     msys.drive_q.set_parameter(100, d_delay, d_length, 2, msys.awg_qrange, d_amp * msys.qubit_mixer.q_ratio,
-                               msys.qubit_mixer.q_offset, msys.qubit_mixer.phase, trig)
+                               msys.qubit_mixer.q_offset, phase, trig)
     msys.readout_i.set_parameter(100, r_delay, r_length, 3, msys.awg_crange, r_amp, msys.cavity_mixer.i_offset, 0, trig)
     msys.readout_q.set_parameter(100, r_delay, r_length, 4, msys.awg_crange, r_amp * msys.cavity_mixer.q_ratio,
-                                 msys.cavity_mixer.q_offset, msys.cavity_mixer.phase, trig)
+                                 msys.cavity_mixer.q_offset, phase, trig)
     load_one_ch(msys.drive_i)
     load_one_ch(msys.drive_q)
     load_one_ch(msys.readout_i)
